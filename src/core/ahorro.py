@@ -12,10 +12,11 @@ class AhorroProgramado:
         :rtype: float
     """ 
 
-    def __init__(self, meta: float, plazo: int, extra: float):
+    def __init__(self, meta: float, plazo: int, extra: float, mes_extra: int):
         self.meta = meta
         self.plazo = plazo
         self.extra = extra
+        self.mes_extra = mes_extra
     
     def calcular_ahorro(self) -> float:
         if self.plazo == 0:
@@ -25,7 +26,7 @@ class AhorroProgramado:
 
 
 
-meta1 = AhorroProgramado(1100000, 6, 0)
+meta1 = AhorroProgramado(1100000, 6, 0, 0)
 print(meta1.calcular_ahorro())
     
 

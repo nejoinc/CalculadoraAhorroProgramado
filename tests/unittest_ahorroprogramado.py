@@ -13,9 +13,9 @@ class TestAhorroProgramado(unittest.TestCase):
         ahorro = AhorroProgramado(1100000, 6, 0)
         self.assertEqual(ahorro.calcular_ahorro(), 183333.33)
 
-    def test_calcular_tasa_interes(self):
-        # Aquí puedes agregar pruebas para la función calcular_tasa_interes
-        pass
+    def test_caso_normal_dos(self):
+        ahorro = AhorroProgramado(9000000, 12, 0)
+        self.assertEqual(ahorro.calcular_ahorro(), 750000)
 
     def test_calcular_tiempo_ahorro(self):
         # Aquí puedes agregar pruebas para la función calcular_tiempo_ahorro
