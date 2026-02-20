@@ -9,15 +9,15 @@ from core.ahorro import AhorroProgramado
 class TestAhorroProgramado(unittest.TestCase):
     def test_caso_normal(self):
         ahorro = AhorroProgramado(meta=1100000, plazo=6, extra=0, mes_extra=1)
-        self.assertEqual(ahorro.calcular_ahorro(), 183333.33)
+        self.assertEqual(ahorro.calcular_ahorro(), 179925.80) 
 
     def test_caso_normal_dos(self):
         ahorro = AhorroProgramado(meta=9000000, plazo=12, extra=0, mes_extra=1)
-        self.assertEqual(ahorro.calcular_ahorro(), 750000)
+        self.assertEqual(ahorro.calcular_ahorro(), 719563.29)
 
     def test_caso_normal_tres(self):
         ahorro = AhorroProgramado(meta=170000000, plazo=36, extra=0, mes_extra=1)
-        self.assertEqual(ahorro.calcular_ahorro(), 4722222.22)
+        self.assertEqual(ahorro.calcular_ahorro(), 4130954.55)
 
 
     ### CASOS EXTRAORDNARIOS

@@ -13,6 +13,8 @@ class AhorroProgramado:
     :return: El monto que se debe ahorrar cada mes para alcanzar la meta
     :rtype: float
     """ 
+    
+    tasa = 0.0075
 
     def __init__(self, meta: float, plazo: int, extra: float, mes_extra: int):
         self.meta = meta
@@ -21,7 +23,7 @@ class AhorroProgramado:
         self.mes_extra = mes_extra
     
     def calcular_ahorro(self) -> float:
-        if self.meta < 0: 
+        if self.meta <= 0: 
             return "Error: el valor a ahorar debe ser mayor a  0"
         if self.plazo <= 0: 
             return "Error: el plazo debe ser mayor a 0"
@@ -30,12 +32,17 @@ class AhorroProgramado:
         if self.extra > self.meta: 
             return "Error: abono supera meta de ahorro"
         
+
+        i = self.tasa
+        n = self.plazo
         meta_restante = self.meta - self.extra
 
-        ahorro_base = meta_restante / self.plazo
+        if n == 1:
+            return round(meta_restante, 2)
+
+        cuota = (meta_restante * i) / ((1 + i)**n - 1)
         
-      
-        return round(ahorro_base, 2) if ahorro_base > 0 else 0
+        return round(cuota, 2) 
       
 
     
