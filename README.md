@@ -45,7 +45,7 @@ El cálculo se basa en:
 - 📌 Fórmula de valor futuro de anualidad:
 
 \[
-![Fórmula Valor Futuro](assets/images//formula.svg)
+![Fórmula Valor Futuro](assets/images//formula2.svg)
 \]
 
 Donde:
