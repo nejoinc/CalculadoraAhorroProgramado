@@ -5,14 +5,10 @@ from pathlib import Path
 # Permite importar desde la carpeta raíz del proyecto
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.ahorro import AhorroProgramado
-
+from core.ahorro import AhorroProgramado, ErrorMetaMayorACero, ErrorPlazoMayorACero, ErrorAbonoSuperaMeta, ErrorMesExtraFueraDelRango, ErrorExtraMenorACero
 
 class TestAhorroProgramado(unittest.TestCase):
-
-   
     # CASOS NORMALES
-   
     def test_caso_normal_uno(self):
         ahorro = AhorroProgramado(meta=1100000, plazo=6, extra=0, mes_extra=1)
         self.assertEqual(ahorro.calcular_ahorro(), 179925.80)
@@ -25,14 +21,10 @@ class TestAhorroProgramado(unittest.TestCase):
         ahorro = AhorroProgramado(meta=170000000, plazo=36, extra=0, mes_extra=1)
         self.assertEqual(ahorro.calcular_ahorro(), 4130954.55)
 
-
-   
     #CASOS EXTRAORDINARIOS
-   
-
     def test_meta_cero(self):
         ahorro = AhorroProgramado(meta=0, plazo=1, extra=0, mes_extra=1)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ErrorMetaMayorACero):
             ahorro.calcular_ahorro()
 
     def test_ahorro_unico_mes(self):
@@ -44,29 +36,31 @@ class TestAhorroProgramado(unittest.TestCase):
         self.assertEqual(ahorro.calcular_ahorro(), 0)
 
 
-   
     # CASOS DE ERROR
-   
     def test_meta_menor_a_cero(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ErrorMetaMayorACero):
             ahorro = AhorroProgramado(meta=-1300000, plazo=15, extra=0, mes_extra=1)
             ahorro.calcular_ahorro()
 
     def test_plazo_cero(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ErrorPlazoMayorACero):
             ahorro = AhorroProgramado(meta=5000, plazo=0, extra=0, mes_extra=1)
             ahorro.calcular_ahorro()
 
     def test_abono_supera_meta(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ErrorAbonoSuperaMeta):
             ahorro = AhorroProgramado(meta=400000, plazo=2, extra=800000, mes_extra=1)
             ahorro.calcular_ahorro()
 
     def test_mes_extra_fuera_de_rango(self):
-        with self.assertRaises(ValueError):
-            ahorro = AhorroProgramado(meta=200000, plazo=3, extra=20000, mes_extra=4)
+        with self.assertRaises(ErrorMesExtraFueraDelRango):
+            ahorro = AhorroProgramado(meta=200000, plazo=3, extra=20000, mes_extra=5)
             ahorro.calcular_ahorro()
 
+    def test_extra_menor_a_cero(self):
+        with self.assertRaises(ErrorExtraMenorACero): 
+            ahorro = AhorroProgramado(meta=200000, plazo=3, extra=-20000, mes_extra=1)
+            ahorro.calcular_ahorro()
 
 if __name__ == '__main__':
     unittest.main()

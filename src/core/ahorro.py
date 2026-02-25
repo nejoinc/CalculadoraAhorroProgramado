@@ -1,11 +1,39 @@
 from dataclasses import dataclass, field
-@dataclass
 
+class ErrorMetaMayorACero(Exception):
+    """
+        Se usa cuando la meta del ahorro es menor o igual que 0
+    """ 
+    pass
+class ErrorPlazoMayorACero(Exception):
+    """
+        Se usa cuando el plazo del ahorro es igual o menor que 0 
+    """ 
+    pass
+class ErrorAbonoSuperaMeta(Exception): 
+    """
+        Se usa cuando el abono extra supera la meta de ahorro
+    """
+    pass
+
+class ErrorMesExtraFueraDelRango(Exception): 
+    """
+        Se usa cuando el mes donde se hace el abono extra es mayor que la meta del ahorro programado
+    """
+    pass
+
+class ErrorExtraMenorACero(Exception): 
+    """
+        Se usa cuando el monto extra es menor que 0
+    """
+    pass
+
+@dataclass
 class AhorroProgramado:
     """
     Documentacion AhorroProgramado
-    :param tasa: La tasa de interés mensual valor constante
-    :type tasa: float
+    :ivar tasa: La tasa de interés mensual valor constante
+    :vartype tasa: float
     :param meta: La meta a la cual se desea llegar
     :type meta: float
     :param plazo: El plazo en meses para alcanzar la meta
@@ -27,13 +55,15 @@ class AhorroProgramado:
     
     def calcular_ahorro(self) -> float:
         if self.meta <= 0: 
-            raise ValueError("Error: el valor a ahorar debe ser mayor a 0")
+            raise ErrorMetaMayorACero("Error: el valor a ahorar debe ser mayor a 0")
         if self.plazo <= 0: 
-            raise ValueError("Error: el plazo debe ser mayor a 0")       
+            raise ErrorPlazoMayorACero("Error: el plazo debe ser mayor a 0")       
         if self.mes_extra < 1 or self.mes_extra > self.plazo:
-            raise ValueError("Error: el mes extra debe estar entre 1 y el plazo")          
+            raise ErrorMesExtraFueraDelRango("Error: el mes extra debe estar entre 1 y el plazo")          
         if self.extra > self.meta: 
-            raise ValueError("Error: abono supera meta de ahorro")
+            raise ErrorAbonoSuperaMeta("Error: abono supera meta de ahorro")
+        if self.extra < 0: 
+            raise ErrorExtraMenorACero("Error: El extra es menor que 0")
         
         if self.extra == self.meta:
             return 0
