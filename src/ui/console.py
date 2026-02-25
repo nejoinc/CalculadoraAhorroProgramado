@@ -1,7 +1,6 @@
 import sys
 from pathlib import Path
 
-# Permite importar desde la carpeta raíz del proyecto
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from core.ahorro import * 
 
@@ -26,7 +25,7 @@ def main():
         cuota = ahorro.calcular_ahorro()
 
         print("\n✅ RESULTADO")
-        print(f"Debes ahorrar mensualmente: ${cuota:,.2f}")
+        print(f"Debes ahorrar mensualmente: ${round(cuota, 2)}")
 
     except (
         ErrorMetaMayorACero,
