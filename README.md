@@ -57,13 +57,13 @@ Donde:
 Si existe un abono extra, se calcula su valor futuro:
 
 \[
-FV_{extra} = extra \cdot (1+i)^{n-k}
+![Fórmula Valor Futuro](assets/images//fvextra.svg)
 \]
 
 Luego se despeja la cuota mensual necesaria:
 
 \[
-C = \frac{meta - FV_{extra}}{\frac{(1+i)^n - 1}{i}}
+![Fórmula Valor Futuro](assets/images//cuotamensual.svg)
 \]
 
 El resultado se redondea a 2 decimales.
