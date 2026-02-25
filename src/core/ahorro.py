@@ -22,12 +22,12 @@ class ErrorMesExtraFueraDelRango(Exception):
     """
     pass
 
-class ErrorExtraMenorACero(Exception): 
-    """
-        Se usa cuando el monto extra es menor que 0
-    """
-    pass
-
+class ErrorAbonoExtraMenorAcero(Exception):
+    
+    """"
+        Se usa cuando el abono extra es menor que 0
+    """ 
+    
 @dataclass
 class AhorroProgramado:
     """
@@ -51,20 +51,18 @@ class AhorroProgramado:
     plazo: int
     extra: float
     mes_extra: int
-      
     
     def calcular_ahorro(self) -> float:
         if self.meta <= 0: 
-            raise ErrorMetaMayorACero("Error: el valor a ahorar debe ser mayor a 0")
+            raise ErrorMetaMayorACero(f"Error: el valor {self.meta} ingresado debe ser mayor a 0")
         if self.plazo <= 0: 
-            raise ErrorPlazoMayorACero("Error: el plazo debe ser mayor a 0")       
+            raise ErrorPlazoMayorACero(f"Error: el plazo {self.plazo} ingresado debe ser mayor a 0")       
         if self.mes_extra < 1 or self.mes_extra > self.plazo:
-            raise ErrorMesExtraFueraDelRango("Error: el mes extra debe estar entre 1 y el plazo")          
+            raise ErrorMesExtraFueraDelRango(f"Error: el mes extra ingresado {self.mes_extra} debe estar entre 1 y el plazo {self.plazo}")          
         if self.extra > self.meta: 
-            raise ErrorAbonoSuperaMeta("Error: abono supera meta de ahorro")
+            raise ErrorAbonoSuperaMeta(f"Error: El extra {self.extra} ingresado supera la meta de ahorro {self.meta}")
         if self.extra < 0: 
-            raise ErrorExtraMenorACero("Error: El extra es menor que 0")
-        
+            raise ErrorAbonoExtraMenorAcero(f"Error: abono {self.extra} ingresado debe ser mayor que 0")        
         if self.extra == self.meta:
             return 0
         

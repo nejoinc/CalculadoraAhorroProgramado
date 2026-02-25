@@ -5,7 +5,7 @@ from pathlib import Path
 # Permite importar desde la carpeta raíz del proyecto
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.ahorro import AhorroProgramado, ErrorMetaMayorACero, ErrorPlazoMayorACero, ErrorAbonoSuperaMeta, ErrorMesExtraFueraDelRango, ErrorExtraMenorACero
+from core.ahorro import *
 
 class TestAhorroProgramado(unittest.TestCase):
     # CASOS NORMALES
@@ -56,11 +56,12 @@ class TestAhorroProgramado(unittest.TestCase):
         with self.assertRaises(ErrorMesExtraFueraDelRango):
             ahorro = AhorroProgramado(meta=200000, plazo=3, extra=20000, mes_extra=5)
             ahorro.calcular_ahorro()
-
-    def test_extra_menor_a_cero(self):
-        with self.assertRaises(ErrorExtraMenorACero): 
-            ahorro = AhorroProgramado(meta=200000, plazo=3, extra=-20000, mes_extra=1)
+    
+    def test_abono_menor_a_cero(self):
+        with self.assertRaises(ErrorAbonoExtraMenorAcero):
+            ahorro = AhorroProgramado(meta=200000, plazo=3, extra=-200000, mes_extra=1)
             ahorro.calcular_ahorro()
 
+    
 if __name__ == '__main__':
     unittest.main()
