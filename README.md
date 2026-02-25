@@ -45,7 +45,7 @@ El cálculo se basa en:
 - 📌 Fórmula de valor futuro de anualidad:
 
 \[
-FV = C \cdot \frac{(1+i)^n - 1}{i}
+![Fórmula Valor Futuro](assets/formula.svg)
 \]
 
 Donde:
