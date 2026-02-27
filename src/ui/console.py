@@ -7,14 +7,15 @@ from core.ahorro import *
 def main():
     print("\n📈 CALCULADORA DE AHORRO PROGRAMADO\n")
 
-    meta = float(input("Ingrese la meta de ahorro: "))
-    plazo = int(input("Ingrese el plazo en meses: "))
-    extra =  float(input("Ingrese el monto extra (0 si no aplica): "))
-    if extra == 0:  
-        mes_extra = 1
-    else: 
-        mes_extra = int(input("Ingrese el mes del aporte extra: "))
     try:
+        meta = float(input("Ingrese la meta de ahorro: "))
+        plazo = int(input("Ingrese el plazo en meses: "))
+        extra =  float(input("Ingrese el monto extra (0 si no aplica): "))
+        if extra == 0:  
+            mes_extra = 1
+        else: 
+            mes_extra = int(input("Ingrese el mes del aporte extra: "))
+        
         ahorro = AhorroProgramado(
             meta=meta,
             plazo=plazo,
@@ -26,6 +27,9 @@ def main():
 
         print("\n✅ RESULTADO")
         print(f"Debes ahorrar mensualmente: ${round(cuota, 2)}")
+    
+    except ValueError:
+        print("\n🚨 Debes ingresar valores numéricos válidos.")
 
     except (
         ErrorMetaMayorACero,
