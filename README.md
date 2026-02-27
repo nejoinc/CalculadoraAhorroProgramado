@@ -20,7 +20,7 @@ La aplicación utiliza:
 - 📌 Fórmula de valor futuro de anualidad ordinaria:
 
 \[
-FV = C \cdot \frac{(1+i)^n - 1}{i}
+![Fórmula Valor Futuro](assets/images//formula2.svg)
 \]
 
 Donde:
@@ -32,7 +32,7 @@ Donde:
 Si existe un abono extra, se calcula su valor futuro:
 
 \[
-FV_{extra} = Extra \cdot (1+i)^{(n-k)}
+![Fórmula Valor Futuro](assets/images//fvextra.svg)
 \]
 
 Donde:
@@ -43,7 +43,7 @@ Donde:
 Finalmente, se despeja la cuota mensual:
 
 \[
-C = \frac{Meta - FV_{extra}}{\frac{(1+i)^n - 1}{i}}
+![Fórmula Valor Futuro](assets/images//cuotamensual.svg)
 \]
 
 El resultado se redondea a **2 decimales**.
