@@ -159,21 +159,6 @@ Para ejecutar las pruebas:
 python -m unittest
 ```
 
----
-
-## 🏗️ Estructura del Proyecto
-
-```
-📦 proyecto
- ┣ 📂 core
- ┃ ┗ 📜 ahorro.py
- ┣ 📂 tests
- ┃ ┗ 📜 test_ahorro.py
- ┣ 📜 main.py
- ┗ 📜 README.md
-```
-
----
 
 ## 🧼 Principios Aplicados
 
