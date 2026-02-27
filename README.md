@@ -186,6 +186,6 @@ python -m unittest
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Autores
 
-Proyecto académico desarrollado como práctica de modelado financiero y buenas prácticas de programación en Python.
+Proyecto académico desarrollado por Luisa Fernanda Espinal Montoya y Jose Manuel Jaramillo Valencia como práctica de modelado financiero sobre el ahorro programado y buenas prácticas de programación en Python.
