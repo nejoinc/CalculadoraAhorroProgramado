@@ -1,20 +1,58 @@
 # 📈 Calculadora de Ahorro Programado
 
-Proyecto académico desarrollado bajo principios de **código limpio**, validaciones robustas y pruebas unitarias.
+Proyecto académico desarrollado bajo principios de **código limpio**, validaciones robustas, excepciones personalizadas y pruebas unitarias.
 
-Esta aplicación permite calcular cuánto se debe ahorrar mensualmente para alcanzar una meta financiera en un plazo determinado, considerando una tasa de interés mensual fija y un posible abono extra en un mes específico.
+Esta aplicación calcula cuánto se debe ahorrar mensualmente para alcanzar una meta financiera en un plazo determinado, considerando una tasa de interés mensual fija y un posible abono extra en un mes específico.
 
 ---
 
 ## 🎯 Objetivo
 
-Calcular la **cuota mensual de ahorro** necesaria para alcanzar una meta financiera usando el modelo de valor futuro de una anualidad con interés compuesto.
+Calcular la **cuota mensual de ahorro necesaria** para alcanzar una meta financiera utilizando el modelo de **valor futuro de una anualidad con interés compuesto**, incluyendo la posibilidad de un aporte extraordinario.
 
 ---
 
-## 📥 Entradas del sistema
+## 🧮 Fundamento Matemático
 
-El programa solicita los siguientes datos:
+La aplicación utiliza:
+
+- 📌 **Tasa de interés mensual fija:** `0.75%` (0.0075)
+- 📌 Fórmula de valor futuro de anualidad ordinaria:
+
+\[
+FV = C \cdot \frac{(1+i)^n - 1}{i}
+\]
+
+Donde:
+
+- `C` = cuota mensual  
+- `i` = tasa de interés mensual  
+- `n` = número de meses  
+
+Si existe un abono extra, se calcula su valor futuro:
+
+\[
+FV_{extra} = Extra \cdot (1+i)^{(n-k)}
+\]
+
+Donde:
+
+- `Extra` = monto adicional  
+- `k` = mes en el que se realiza el abono  
+
+Finalmente, se despeja la cuota mensual:
+
+\[
+C = \frac{Meta - FV_{extra}}{\frac{(1+i)^n - 1}{i}}
+\]
+
+El resultado se redondea a **2 decimales**.
+
+---
+
+## 📥 Entradas del Sistema
+
+El programa solicita los siguientes datos por consola:
 
 | Entrada | Tipo | Descripción |
 |----------|--------|--------------|
@@ -23,7 +61,9 @@ El programa solicita los siguientes datos:
 | `extra` | float | Abono adicional realizado en un mes específico (puede ser 0). |
 | `mes_extra` | int | Mes en el que se realiza el abono extra. |
 
-### 🔎 Validaciones implementadas
+---
+
+## 🔎 Validaciones Implementadas
 
 El sistema valida que:
 
@@ -33,43 +73,119 @@ El sistema valida que:
 - El abono extra no supere la meta.
 - El mes del abono esté dentro del rango del plazo.
 
-Si alguna condición falla, se lanzan **excepciones personalizadas**.
+Si alguna condición falla, el sistema lanza **excepciones personalizadas**.
 
 ---
 
-## ⚙️ Proceso
+## ⚙️ Proceso de Ejecución
 
-El cálculo se basa en:
-
-- 📌 Interés compuesto mensual fijo: `0.75%`
-- 📌 Fórmula de valor futuro de anualidad:
-
-\[
-![Fórmula Valor Futuro](assets/images//formula2.svg)
-\]
-
-Donde:
-
-- `C` = cuota mensual
-- `i` = tasa de interés mensual
-- `n` = número de meses
-
-Si existe un abono extra, se calcula su valor futuro:
-
-\[
-![Fórmula Valor Futuro](assets/images//fvextra.svg)
-\]
-
-Luego se despeja la cuota mensual necesaria:
-
-\[
-![Fórmula Valor Futuro](assets/images//cuotamensual.svg)
-\]
-
-El resultado se redondea a 2 decimales.
+1. El usuario ingresa los datos solicitados.
+2. Se ejecutan las validaciones.
+3. Se calcula el valor futuro del abono extra (si existe).
+4. Se calcula el factor de anualidad.
+5. Se despeja la cuota mensual.
+6. Se muestra el resultado o el mensaje de error correspondiente.
 
 ---
 
-## 📤 Salida
+## 📤 Salida del Sistema
 
-El sistema muestra:
+### ✅ Caso Exitoso
+
+Cuando los datos son válidos, el sistema muestra:
+
+```
+📈 CALCULADORA DE AHORRO PROGRAMADO
+
+Ingrese la meta de ahorro: 1100000
+Ingrese el plazo en meses: 6
+Ingrese el monto extra (0 si no aplica): 0
+
+✅ RESULTADO
+Debes ahorrar mensualmente: $179925.80
+```
+
+El valor:
+
+- Está expresado en moneda.
+- Está redondeado a 2 decimales.
+- Representa la cuota mensual necesaria para cumplir la meta.
+
+---
+
+### 🚨 Casos de Error
+
+Si ocurre una validación incorrecta, el sistema muestra mensajes descriptivos como:
+
+**Meta inválida**
+```
+🚨 Error: la meta de ahorro 0 ingresada debe ser mayor a 0
+```
+
+**Plazo inválido**
+```
+🚨 Error: el plazo 0 ingresado debe ser mayor a 0
+```
+
+**Abono extra supera la meta**
+```
+🚨 Error: El extra 800000 ingresado supera la meta de ahorro 400000
+```
+
+**Mes fuera de rango**
+```
+🚨 Error: el mes extra ingresado 5 debe estar entre 1 y el plazo 3
+```
+
+**Abono negativo**
+```
+🚨 Error: abono -200000 ingresado debe ser mayor que 0
+```
+
+---
+
+## 🧪 Pruebas Unitarias
+
+El proyecto incluye pruebas automatizadas con `unittest` que cubren:
+
+- Casos normales
+- Casos extraordinarios
+- Casos límite
+- Manejo de errores
+
+Para ejecutar las pruebas:
+
+```bash
+python -m unittest
+```
+
+---
+
+## 🏗️ Estructura del Proyecto
+
+```
+📦 proyecto
+ ┣ 📂 core
+ ┃ ┗ 📜 ahorro.py
+ ┣ 📂 tests
+ ┃ ┗ 📜 test_ahorro.py
+ ┣ 📜 main.py
+ ┗ 📜 README.md
+```
+
+---
+
+## 🧼 Principios Aplicados
+
+- Programación orientada a objetos
+- Excepciones personalizadas
+- Separación de responsabilidades
+- Validaciones robustas
+- Código limpio y legible
+- Pruebas unitarias automatizadas
+
+---
+
+## 👨‍💻 Autor
+
+Proyecto académico desarrollado como práctica de modelado financiero y buenas prácticas de programación en Python.
