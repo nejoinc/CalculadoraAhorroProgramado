@@ -14,8 +14,8 @@ class TestAhorroProgramado(unittest.TestCase):
         self.assertEqual(ahorro.calcular_ahorro(), 179925.80)
 
     def test_caso_normal_dos(self):
-        ahorro = AhorroProgramado(meta=9000000, plazo=12, extra=0, mes_extra=1)
-        self.assertEqual(ahorro.calcular_ahorro(), 719563.29)
+        ahorro = AhorroProgramado(meta=9000000, plazo=12, extra=1000000, mes_extra=6)
+        self.assertEqual(ahorro.calcular_ahorro(), 635945.86)
 
     def test_caso_normal_tres(self):
         ahorro = AhorroProgramado(meta=170000000, plazo=36, extra=0, mes_extra=1)
