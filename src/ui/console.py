@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from core.ahorro import * 
+from model.ahorro import * 
 
 def main():
     print("\n📈 CALCULADORA DE AHORRO PROGRAMADO\n")
@@ -16,14 +16,15 @@ def main():
         else: 
             mes_extra = int(input("Ingrese el mes del aporte extra: "))
         
-        ahorro = AhorroProgramado(
+        ahorro = Ahorro(
             meta=meta,
             plazo=plazo,
             extra=extra,
             mes_extra=mes_extra
         )
 
-        cuota = ahorro.calcular_ahorro()
+        ap = AhorroProgramado()
+        cuota = ap.calcular_ahorro(ahorro)
 
         print("\n✅ RESULTADO")
         print(f"Debes ahorrar mensualmente: ${round(cuota, 2)}")
