@@ -75,6 +75,12 @@ CALCULADORA_AHORRO_PROGRAMADO
 │       ├── console.py
 │       └── calculadora_ahorro_gui.py
 │
+├── sql/
+│   ├── 01_usuarios.sql
+│   ├── 02_metas_ahorro.sql
+│   ├── 03_historial_calculos.sql
+│   └── 04_inserts_ejemplo.sql
+│
 ├── tests/
 │   └── test_ahorroprogramado.py
 │
@@ -241,6 +247,41 @@ Este proyecto implementa:
 - ✔️ Código limpio y legible
 - ✔️ Pruebas unitarias automatizadas
 - ✔️ Variables descriptivas para mejorar la comprensión del código
+
+---
+
+# 🗄️ Base de Datos
+
+El proyecto incluye scripts SQL para persistir los cálculos realizados por los usuarios. Se encuentran en la carpeta `sql/`.
+
+## Tablas
+
+| Script | Tabla | Propósito |
+|--------|-------|-----------|
+| `01_usuarios.sql` | `usuarios` | Almacena los usuarios que utilizan la calculadora |
+| `02_metas_ahorro.sql` | `metas_ahorro` | Guarda cada simulación con sus parámetros (meta, plazo, extra, mes_extra) y la cuota mensual resultante |
+| `03_historial_calculos.sql` | `historial_calculos` | Registra el detalle completo de cada cálculo, incluyendo valores intermedios (valor futuro extra, factor de anualidad) para auditoría |
+| `04_inserts_ejemplo.sql` | — | Inserta datos de ejemplo para probar la base de datos |
+
+### Diagrama Entidad-Relación
+
+```
+┌─────────────┐       ┌──────────────────┐       ┌──────────────────────┐
+│   usuarios  │       │   metas_ahorro   │       │ historial_calculos   │
+├─────────────┤       ├──────────────────┤       ├──────────────────────┤
+│ id_usuario  │──┐    │ id_meta          │       │ id_historial         │
+│ nombre      │  │    │ id_usuario (FK)  │◄──────┤ id_usuario (FK)     │
+│ email       │  └────┤ meta             │       │ meta                 │
+│ fecha_reg   │       │ plazo            │       │ plazo                │
+└─────────────┘       │ extra            │       │ extra                │
+                      │ mes_extra        │       │ mes_extra            │
+                      │ tasa             │       │ tasa                 │
+                      │ cuota_mensual    │       │ valor_futuro_extra   │
+                      │ fecha_calculo    │       │ factor_anualidad     │
+                      └──────────────────┘       │ cuota_mensual        │
+                                                 │ fecha_calculo        │
+                                                 └──────────────────────┘
+```
 
 ---
 
