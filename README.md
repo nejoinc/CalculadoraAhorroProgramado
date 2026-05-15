@@ -254,6 +254,41 @@ Este proyecto implementa:
 
 El proyecto incluye scripts SQL para persistir los cálculos realizados por los usuarios. Se encuentran en la carpeta `sql/`.
 
+## Configuración de conexión
+
+1. Copia `secret_config_sample.py` a `secret_config.py`.
+2. Abre `secret_config.py` y escribe estos datos:
+
+```python
+DB_CONFIG = {
+    "host": "dpg-d7ln7667r5hc73c2j1pg-a.oregon-postgres.render.com",
+    "database": "calcuradora_ahorro_programado",
+    "user": "root",
+    "password": "HBjYhzFzw0I4si4puVYqAcAsFRBEwfDS",
+    "port": "5432",
+}
+```
+
+3. Guarda el archivo.
+
+No necesitas usar comandos extra ni variables de entorno. Solo asegúrate de tener Python instalado.
+
+## Crear las tablas
+
+Si la base de datos ya existe, puedes crear las tablas desde Python con este comando en el proyecto:
+
+```python
+python -c "from src.controller.usuario_controller import UsuarioController; UsuarioController.crear_tablas()"
+```
+
+O bien, si prefieres usar los archivos SQL, abre la terminal en la carpeta del proyecto y ejecuta:
+
+```python
+psql -d calculadora_ahorro_programado -f sql/01_usuarios.sql
+psql -d calculadora_ahorro_programado -f sql/02_metas_ahorro.sql
+psql -d calculadora_ahorro_programado -f sql/03_historial_calculos.sql
+```
+
 ## Tablas
 
 | Script | Tabla | Propósito |

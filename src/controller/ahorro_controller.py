@@ -1,8 +1,9 @@
 import psycopg2
 
-from model.ahorro import Ahorro, AhorroProgramado
-from model.meta_ahorro import MetaAhorro
-from model.historial_calculo import HistorialCalculo
+from src.db import get_connection
+from src.model.ahorro import Ahorro, AhorroProgramado
+from src.model.meta_ahorro import MetaAhorro
+from src.model.historial_calculo import HistorialCalculo
 
 
 class AhorroController:
@@ -10,13 +11,7 @@ class AhorroController:
     def calcular_y_guardar(id_usuario: int, ahorro: Ahorro):
         cuota = AhorroProgramado().calcular_ahorro(ahorro)
 
-        connection = psycopg2.connect(
-            host="postgresql://root:HBjYhzFzw0I4si4puVYqAcAsFRBEwfDS@dpg-d7ln7667r5hc73c2j1pg-a.oregon-postgres.render.com/calcuradora_ahorro_programado",
-            database="calcuradora_ahorro_programado",
-            user="root",
-            password="HBjYhzFzw0I4si4puVYqAcAsFRBEwfDS",
-            port="5432"
-        )
+        connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(
             """INSERT INTO metas_ahorro
@@ -29,13 +24,7 @@ class AhorroController:
         connection.close()
 
     def buscar_meta(id_meta: int) -> MetaAhorro | None:
-        connection = psycopg2.connect(
-            host="",
-            database="",
-            user="",
-            password="",
-            port="5432"
-        )
+        connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(
             "SELECT id_meta, id_usuario, meta, plazo, extra, mes_extra FROM metas_ahorro WHERE id_meta = %s",
@@ -51,13 +40,7 @@ class AhorroController:
         )
 
     def buscar_historial(id_historial: int) -> HistorialCalculo | None:
-        connection = psycopg2.connect(
-            host="",
-            database="",
-            user="",
-            password="",
-            port="5432"
-        )
+        connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(
             "SELECT id_historial, id_usuario, meta, plazo, extra, mes_extra, cuota_mensual FROM historial_calculos WHERE id_historial = %s",

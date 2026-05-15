@@ -10,8 +10,18 @@ from src.controller.usuario_controller import UsuarioController
 
 
 class TestUsuario(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        UsuarioController.crear_tablas()
+
+    @classmethod
+    def tearDownClass(cls):
+        for id_usuario in (100, 200, 300, 400, 500):
+            UsuarioController.eliminar(id_usuario)
 
     def test_insertar_y_buscar(self):
+        UsuarioController.eliminar(100)
+
         usuario_prueba = Usuario(
             id_usuario=100,
             nombre="Luisa Espinal",
@@ -25,6 +35,8 @@ class TestUsuario(unittest.TestCase):
         self.assertEqual(usuario_prueba, usuario_buscado)
 
     def test_insertar_y_buscar_con_acentos(self):
+        UsuarioController.eliminar(200)
+
         usuario_prueba = Usuario(
             id_usuario=200,
             nombre="José Jaramillo",
@@ -38,6 +50,8 @@ class TestUsuario(unittest.TestCase):
         self.assertEqual(usuario_prueba, usuario_buscado)
 
     def test_insertar_y_buscar_nombre_largo(self):
+        UsuarioController.eliminar(300)
+
         usuario_prueba = Usuario(
             id_usuario=300,
             nombre="Usuario con nombre extremadamente largo para pruebas",
@@ -47,6 +61,36 @@ class TestUsuario(unittest.TestCase):
         UsuarioController.insertar(usuario_prueba)
 
         usuario_buscado = UsuarioController.buscar(300)
+
+        self.assertEqual(usuario_prueba, usuario_buscado)
+
+    def test_insertar_y_buscar_con_ñ(self):
+        UsuarioController.eliminar(400)
+
+        usuario_prueba = Usuario(
+            id_usuario=400,
+            nombre="Peña Ñandú",
+            email="pena.nandu@email.com"
+        )
+
+        UsuarioController.insertar(usuario_prueba)
+
+        usuario_buscado = UsuarioController.buscar(400)
+
+        self.assertEqual(usuario_prueba, usuario_buscado)
+
+    def test_insertar_y_buscar_con_caracteres_especiales(self):
+        UsuarioController.eliminar(500)
+
+        usuario_prueba = Usuario(
+            id_usuario=500,
+            nombre="Ángel Núñez",
+            email="angel.nunez@email.com"
+        )
+
+        UsuarioController.insertar(usuario_prueba)
+
+        usuario_buscado = UsuarioController.buscar(500)
 
         self.assertEqual(usuario_prueba, usuario_buscado)
 
