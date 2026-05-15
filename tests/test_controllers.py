@@ -10,14 +10,6 @@ from src.controller.usuario_controller import UsuarioController
 
 
 class TestUsuario(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        UsuarioController.crear_tablas()
-
-    @classmethod
-    def tearDownClass(cls):
-        for id_usuario in (100, 200, 300, 400, 500):
-            UsuarioController.eliminar(id_usuario)
 
     def test_insertar_y_buscar(self):
         UsuarioController.eliminar(100)
