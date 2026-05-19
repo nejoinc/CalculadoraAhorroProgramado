@@ -7,10 +7,9 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.popup import Popup
 from kivy.core.window import Window
 
-import sys
-sys.path.append('src')
 
-from model.ahorro import AhorroProgramado, Ahorro
+from src.model.ahorro import AhorroProgramado, Ahorro
+#from src.controller.ahorro_controller import AhorroController
 
 Window.clearcolor = (0.97, 0.97, 0.97, 1)
 
@@ -39,6 +38,7 @@ class AhorroProgramadoApp(App):
         self._add_field("Plazo (meses):", "plazo")
         self._add_field("Abono extra ($):", "extra")
         self._add_field("Mes del abono extra:", "mes_extra")
+        self._add_field("ID Meta a buscar:", "id_busqueda")
 
         # Resultado
         self.resultado = Label(
@@ -62,6 +62,32 @@ class AhorroProgramadoApp(App):
         )
         btn.bind(on_press=self.calcular_ahorro)
         self.layout.add_widget(btn)
+
+        btn_guardar = Button(
+            text="Guardar",
+            size_hint_y=None,
+            height=46,
+            background_color=(0.15, 0.45, 0.75, 1),
+            color=(1, 1, 1, 1),
+            font_size=15,
+            bold=True
+        )
+
+        btn_guardar.bind(on_press=self.guardar_datos)
+        self.layout.add_widget(btn_guardar)
+
+        btn_buscar = Button(
+            text="Buscar",
+            size_hint_y=None,
+            height=46,
+            background_color=(0.75, 0.45, 0.15, 1),
+            color=(1, 1, 1, 1),
+            font_size=15,
+            bold=True
+        )
+
+        btn_buscar.bind(on_press=self.buscar_datos)
+        self.layout.add_widget(btn_buscar)
 
         return self.layout
 
@@ -104,6 +130,44 @@ class AhorroProgramadoApp(App):
         except ValueError:
             self.resultado.text = "Por favor, ingrese valores válidos."
             self.resultado.color = (0.8, 0.2, 0.2, 1)
+        except Exception as err:
+            self.mostrar_error(str(err))
+
+    def guardar_datos(self, *_):
+        try:
+            self.validar()
+
+            ahorro = Ahorro(
+                meta=float(self.meta.text),
+                plazo=int(self.plazo.text),
+                extra=float(self.extra.text),
+                mes_extra=int(self.mes_extra.text)
+            )
+
+            AhorroController.calcular_y_guardar(1, ahorro)
+
+            self.resultado.text = "Datos guardados correctamente."
+            self.resultado.color = (0.10, 0.50, 0.35, 1)
+
+        except Exception as err:
+            self.mostrar_error(str(err))
+    def buscar_datos(self, *_):
+        try:
+            id_meta = int(self.id_busqueda.text)
+
+            resultado = AhorroController.buscar_meta(id_meta)
+
+            if resultado is None:
+                self.resultado.text = "No se encontró la meta."
+                self.resultado.color = (0.8, 0.2, 0.2, 1)
+
+            else:
+                self.resultado.text = (
+                    f"Meta: ${resultado.meta} | "
+                    f"Plazo: {resultado.plazo} meses"
+                )
+                self.resultado.color = (0.10, 0.50, 0.35, 1)
+
         except Exception as err:
             self.mostrar_error(str(err))
 
