@@ -1,5 +1,5 @@
 CREATE TABLE historial_calculos (
-    id_historial INT PRIMARY KEY IDENTITY,
+    id_historial SERIAL PRIMARY KEY,
     id_usuario INT REFERENCES usuarios(id_usuario),
     meta DECIMAL(18,2),
     plazo INT,
@@ -9,5 +9,5 @@ CREATE TABLE historial_calculos (
     valor_futuro_extra DECIMAL(18,2),
     factor_anualidad DECIMAL(18,6),
     cuota_mensual DECIMAL(18,2),
-    fecha_calculo DATETIME DEFAULT GETDATE()
+    fecha_calculo TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

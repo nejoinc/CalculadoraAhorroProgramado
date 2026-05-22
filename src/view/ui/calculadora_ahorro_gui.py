@@ -9,7 +9,7 @@ from kivy.core.window import Window
 
 
 from src.model.ahorro import AhorroProgramado, Ahorro
-#from src.controller.ahorro_controller import AhorroController
+from src.controller.ahorro_controller import AhorroController
 
 Window.clearcolor = (0.97, 0.97, 0.97, 1)
 

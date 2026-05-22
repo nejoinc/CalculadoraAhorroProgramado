@@ -1,6 +1,6 @@
 CREATE TABLE usuarios (
-    id_usuario INT PRIMARY KEY IDENTITY,
+    id_usuario SERIAL PRIMARY KEY,
     nombre VARCHAR(100),
     email VARCHAR(150) UNIQUE,
-    fecha_registro DATETIME DEFAULT GETDATE()
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
