@@ -257,14 +257,14 @@ El proyecto incluye scripts SQL para persistir los cálculos realizados por los 
 ## Configuración de conexión
 
 1. Copia `secret_config_sample.py` a `secret_config.py`.
-2. Abre `secret_config.py` y escribe estos datos:
+2. Abre `secret_config.py` y escribe tus datos de conexión a PostgreSQL:
 
 ```python
 DB_CONFIG = {
-    "host": "dpg-d7ln7667r5hc73c2j1pg-a.oregon-postgres.render.com",
-    "database": "calcuradora_ahorro_programado",
-    "user": "root",
-    "password": "HBjYhzFzw0I4si4puVYqAcAsFRBEwfDS",
+    "host": "tu_host",
+    "database": "tu_database",
+    "user": "tu_usuario",
+    "password": "tu_contraseña",
     "port": "5432",
 }
 ```
@@ -273,66 +273,15 @@ DB_CONFIG = {
 
 No necesitas usar comandos extra ni variables de entorno. Solo asegúrate de tener Python instalado.
 
-## Crear las tablas
-
-Si la base de datos ya existe, puedes crear las tablas desde Python con este comando en el proyecto:
-
-```python
-python -c "from src.controller.usuario_controller import UsuarioController; UsuarioController.crear_tablas()"
-```
-
-O bien, si prefieres usar los archivos SQL, abre la terminal en la carpeta del proyecto y ejecuta:
-
-```python
-psql -d calculadora_ahorro_programado -f sql/01_usuarios.sql
-psql -d calculadora_ahorro_programado -f sql/02_metas_ahorro.sql
-psql -d calculadora_ahorro_programado -f sql/03_historial_calculos.sql
-```
-
-## Tablas
-
-| Script | Tabla | Propósito |
-|--------|-------|-----------|
-| `01_usuarios.sql` | `usuarios` | Almacena los usuarios que utilizan la calculadora |
-| `02_metas_ahorro.sql` | `metas_ahorro` | Guarda cada simulación con sus parámetros (meta, plazo, extra, mes_extra) y la cuota mensual resultante |
-| `03_historial_calculos.sql` | `historial_calculos` | Registra el detalle completo de cada cálculo, incluyendo valores intermedios (valor futuro extra, factor de anualidad) para auditoría |
-| `04_inserts_ejemplo.sql` | — | Inserta datos de ejemplo para probar la base de datos |
-
-### Diagrama Entidad-Relación
-
-```
-┌─────────────┐       ┌──────────────────┐       ┌──────────────────────┐
-│   usuarios  │       │   metas_ahorro   │       │ historial_calculos   │
-├─────────────┤       ├──────────────────┤       ├──────────────────────┤
-│ id_usuario  │──┐    │ id_meta          │       │ id_historial         │
-│ nombre      │  │    │ id_usuario (FK)  │◄──────┤ id_usuario (FK)     │
-│ email       │  └────┤ meta             │       │ meta                 │
-│ fecha_reg   │       │ plazo            │       │ plazo                │
-└─────────────┘       │ extra            │       │ extra                │
-                      │ mes_extra        │       │ mes_extra            │
-                      │ tasa             │       │ tasa                 │
-                      │ cuota_mensual    │       │ valor_futuro_extra   │
-                      │ fecha_calculo    │       │ factor_anualidad     │
-                      └──────────────────┘       │ cuota_mensual        │
-                                                 │ fecha_calculo        │
-                                                 └──────────────────────┘
-```
-
 ---
 
-▶️ Ejecución de la Aplicación
-🖥️ Interfaz Gráfica (GUI)
+# 🌐 Acceso a la Aplicación Web
 
-Para ejecutar la aplicación con interfaz gráfica desde la terminal (CMD):
+La aplicación está desplegada en Render. Accede a través del siguiente enlace:
 
-python src/ui/calculadora_ahorro_gui.py
+# **https://calculadoraahorroprogramado.onrender.com/**
 
-o:
-
-py src/ui/calculadora_ahorro_gui.py
-
-src/ui/calculadora_ahorro_gui
-Antes de ejecutar deberas estar en la carpeta correcta donde guardaste el proyecto 
+---
 
 # 👨‍💻 Autores
 
