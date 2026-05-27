@@ -60,6 +60,11 @@
             border-left: 4px solid #667eea;
         }
 
+        .detail-item.highlight {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left-color: #667eea;
+        }
+
         .detail-label {
             color: #999;
             font-size: 12px;
@@ -83,8 +88,25 @@
             color: #764ba2;
         }
 
+        .detail-value.highlight-value {
+            color: #667eea;
+            font-size: 28px;
+        }
+
         .full-width {
             grid-column: 1 / -1;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #667eea;
+            text-transform: uppercase;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
         }
 
         .button-group {
@@ -159,6 +181,8 @@
         <div class="details-container">
             <span class="info-badge">Meta #{{ meta.id_meta }}</span>
 
+            <div class="section-title">📊 Parámetros de la Meta</div>
+
             <div class="detail-row">
                 <div class="detail-item">
                     <div class="detail-label">Monto Meta</div>
@@ -180,6 +204,15 @@
                 <div class="detail-item">
                     <div class="detail-label">Mes del Extra</div>
                     <div class="detail-value number">{{ meta.mes_extra }}</div>
+                </div>
+            </div>
+
+            <div class="section-title">💰 Resultado del Cálculo</div>
+
+            <div class="detail-row full-width">
+                <div class="detail-item highlight">
+                    <div class="detail-label">Cuota Mensual a Ahorrar</div>
+                    <div class="detail-value highlight-value">${{ meta.cuota_mensual }}</div>
                 </div>
             </div>
 

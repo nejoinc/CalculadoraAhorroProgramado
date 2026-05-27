@@ -38,7 +38,7 @@ class AhorroController:
     def buscar_meta(id_meta: int) -> MetaAhorro | None:
         cursor = AhorroController.obtener_cursor()
         cursor.execute(
-            "SELECT id_meta, id_usuario, meta, plazo, extra, mes_extra FROM metas_ahorro WHERE id_meta = %s",
+            "SELECT id_meta, id_usuario, meta, plazo, extra, mes_extra, cuota_mensual FROM metas_ahorro WHERE id_meta = %s",
             (id_meta,)
         )
         row = cursor.fetchone()
@@ -46,8 +46,13 @@ class AhorroController:
         if row is None:
             return None
         return MetaAhorro(
-            id_meta=row[0], id_usuario=row[1], meta=row[2],
-            plazo=row[3], extra=row[4], mes_extra=row[5]
+            id_meta=row[0], 
+            id_usuario=row[1], 
+            meta=row[2],
+            plazo=row[3], 
+            extra=row[4], 
+            mes_extra=row[5], 
+            cuota_mensual=row[6]
         )
 
     def buscar_metas_por_usuario(id_usuario: int) -> list[MetaAhorro]:
