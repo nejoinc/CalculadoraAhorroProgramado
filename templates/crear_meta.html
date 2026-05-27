@@ -258,6 +258,33 @@
                     <button type="reset" class="btn-secondary">Limpiar</button>
                 </div>
             </form>
+
+            <form id="buscarMetaForm" action="/buscar-meta">
+                <div class="form-section">
+                    <h2>Buscar meta por id de meta</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="meta">Id de la meta *</label>
+                            <input 
+                                type="number" 
+                                id="meta" 
+                                name="meta" 
+                                placeholder="Ej: 1"
+                                step="1"
+                                min="1"
+                                required
+                            >
+                            <span class="helper-text">Id de la meta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-primary">Buscar meta</button>
+                </div>
+            </form>
+
             <div>
                 <p> Si es primera vez que usa la web haga click
                     <a href="/crear_tablas">aqui</a> para crear las tablas

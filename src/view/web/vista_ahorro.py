@@ -38,5 +38,16 @@ def guardar_meta():
     return "Estamos guardando la meta del ahorro =  " + request.args["meta"] + " con el plazo " + request.args["plazo"]
 
 
+@blueprint.route("/buscar-meta")
+def buscar_meta():
+    id_meta = int(request.args["meta"])
+    meta = AhorroController.buscar_meta(id_meta)
+    
+    if meta is None:
+        return f"No se encontró una meta con id {id_meta}"
+    else:
+        return render_template("detalle_meta.html", meta=meta)
+
+
 if __name__ == "__main__":
     blueprint.run(debug = True )
