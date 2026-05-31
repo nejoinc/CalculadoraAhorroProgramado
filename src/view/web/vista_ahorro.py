@@ -32,10 +32,16 @@ def guardar_meta():
     UsuarioController.insertar(usuario_prueba)
         
     ahorro = Ahorro(meta=float(request.args["meta"]), plazo=int(request.args["plazo"]), extra=float(request.args["extra"]), mes_extra=int(request.args["mes_extra"]))
+    
     AhorroController.calcular_y_guardar(id_usuario, ahorro)
         
 
-    return "Estamos guardando la meta del ahorro =  " + request.args["meta"] + " con el plazo " + request.args["plazo"]
+    return render_template(
+    "detalle_meta.html",
+    meta=ahorro,
+    titulo="✅ Meta Guardada Correctamente",
+    subtitulo="La meta fue registrada exitosamente"
+)
 
 
 @blueprint.route("/buscar-meta")

@@ -174,12 +174,16 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>💡 Detalle de Meta</h1>
-            <p>Información de tu plan de ahorro</p>
+            <h1>{{ titulo }}</h1>
+            <p>{{ subtitulo }}</p>
         </div>
 
         <div class="details-container">
+            {% if meta.id_meta %}
             <span class="info-badge">Meta #{{ meta.id_meta }}</span>
+            {% else %}
+            <span class="info-badge">Meta Registrada</span>
+            {% endif %}
 
             <div class="section-title">📊 Parámetros de la Meta</div>
 
@@ -207,7 +211,8 @@
                 </div>
             </div>
 
-            <div class="section-title">💰 Resultado del Cálculo</div>
+            {% if meta.cuota_mensual %}
+<div class="section-title">💰 Resultado del Cálculo</div>
 
             <div class="detail-row full-width">
                 <div class="detail-item highlight">
@@ -215,13 +220,16 @@
                     <div class="detail-value highlight-value">${{ meta.cuota_mensual }}</div>
                 </div>
             </div>
+            {% endif %}
 
+            {% if meta.id_usuario %}
             <div class="detail-row full-width">
                 <div class="detail-item">
                     <div class="detail-label">ID Usuario</div>
                     <div class="detail-value number">#{{ meta.id_usuario }}</div>
                 </div>
             </div>
+            {% endif %}
 
             <div class="button-group">
                 <a href="/" class="btn btn-primary">Crear Nueva Meta</a>
