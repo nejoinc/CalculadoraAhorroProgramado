@@ -6,6 +6,10 @@ El proyecto fue desarrollado aplicando principios de **código limpio, validacio
 
 ---
 
+Interfaz de Usuario en Kivy por William Velasquez
+
+---
+
 # 🎯 Objetivo del Proyecto
 
 Calcular la **cuota mensual de ahorro necesaria** para alcanzar una meta financiera utilizando el modelo de **valor futuro de una anualidad con interés compuesto**, permitiendo incluir un **aporte extraordinario en un mes específico**.
